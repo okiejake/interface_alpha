@@ -2,42 +2,38 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="/src/styles.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tauri App</title>
+    <title>Claude Interface</title>
+    <link rel="stylesheet" href="/src/styles.css" />
     <script type="module" src="/src/main.ts" defer></script>
   </head>
-
   <body>
-    <main class="container">
-      <h1>Welcome to Tauri</h1>
-
-      <div class="row">
-        <a href="https://vite.dev" target="_blank">
-          <img src="/src/assets/vite.svg" class="logo vite" alt="Vite logo" />
-        </a>
-        <a href="https://tauri.app" target="_blank">
-          <img
-            src="/src/assets/tauri.svg"
-            class="logo tauri"
-            alt="Tauri logo"
-          />
-        </a>
-        <a href="https://www.typescriptlang.org/docs" target="_blank">
-          <img
-            src="/src/assets/typescript.svg"
-            class="logo typescript"
-            alt="typescript logo"
-          />
-        </a>
+    <main>
+      <!-- Orb -->
+      <div id="orb-wrap">
+        <div id="orb">
+          <div class="ring ring-1"></div>
+          <div class="ring ring-2"></div>
+          <div class="ring ring-3"></div>
+          <div class="core"></div>
+        </div>
       </div>
-      <p>Click on the Tauri logo to learn more about the framework</p>
 
-      <form class="row" id="greet-form">
-        <input id="greet-input" placeholder="Enter a name..." />
-        <button type="submit">Greet</button>
-      </form>
-      <p id="greet-msg"></p>
+      <!-- Status label -->
+      <p id="status-label">idle</p>
+
+      <!-- Mic toggle -->
+      <button id="mic-btn" aria-label="Toggle microphone">
+        <svg id="icon-mic" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 1a4 4 0 0 1 4 4v7a4 4 0 0 1-8 0V5a4 4 0 0 1 4-4zm6.5 10.5a6.5 6.5 0 0 1-13 0H4a8 8 0 0 0 7.5 7.97V22h1v-2.53A8 8 0 0 0 20 11.5h-1.5z"/>
+        </svg>
+        <svg id="icon-mic-off" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="display:none">
+          <path d="M19 11.5a7 7 0 0 1-.56 2.76l-1.1-1.1c.17-.53.26-1.1.16-1.66H16a4 4 0 0 1-7.97.5L6.9 9.87A6 6 0 0 0 6 11.5a6 6 0 0 0 6 6v1.03A8 8 0 0 1 4 11.5H2.27L1 10.23 2.93 8.3 3.5 7.73 15.5 19.73l1.27-1.27L19 21l1.27-1.27-1.09-1.09A7.94 7.94 0 0 0 20 11.5H19zM12 1a4 4 0 0 1 4 4v4.17l-8-8A4 4 0 0 1 12 1zm4 9.83V5a4 4 0 0 0-4-4 4 4 0 0 0-3.17 1.56L16 10.83z"/>
+        </svg>
+      </button>
+
+      <!-- Transcript feed -->
+      <div id="transcript-feed"></div>
     </main>
   </body>
 </html>
