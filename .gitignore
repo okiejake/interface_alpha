@@ -19,6 +19,11 @@ src-tauri/target/
 sidecar/.venv/
 sidecar/__pycache__/
 sidecar/*.pyc
+sidecar/build/
+sidecar/dist/
+
+# Sidecar binaries (built by PyInstaller, not committed)
+src-tauri/binaries/
 
 # Whisper model cache (downloaded at runtime)
 sidecar/models/

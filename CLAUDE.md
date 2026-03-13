@@ -16,6 +16,11 @@ sidecar/audio_engine.py   (Python — owns all audio)
     ├── librosa            pitch (F0), energy, MFCCs, speaking rate
     └── WebSocket :8765    streams JSON to frontend
     ↓
+src-tauri/src/lib.rs       (Rust — app lifecycle)
+    ├── tauri-plugin-shell spawns sidecar binary on app start
+    ├── Logs sidecar stdout/stderr
+    └── Kills sidecar on app exit
+    ↓
 src/main.ts               (TypeScript frontend)
     ├── WebSocket client   receives transcript + prosody events
     ├── Orb UI             animated violet orb reflects engine state
@@ -24,18 +29,25 @@ src/main.ts               (TypeScript frontend)
 
 ## Running locally
 
-**Start the audio sidecar** (must be running before or alongside the frontend):
+**Build the sidecar binary** (first time, or after changing `audio_engine.py`):
 ```bash
-source ~/.cargo/env
-PYTHONUNBUFFERED=1 sidecar/.venv/bin/python -u sidecar/audio_engine.py
+npm run build:sidecar
 ```
 
-**Start Tauri dev:**
+**Start Tauri dev** (sidecar auto-launches):
 ```bash
+source ~/.cargo/env
 npm run tauri dev
 ```
 
 Then click the mic button in the app to start listening.
+
+**For production build:**
+```bash
+source ~/.cargo/env
+npm run tauri build
+```
+This runs `build:all` (PyInstaller + Vite) then packages the app with the sidecar bundled.
 
 ## Environment
 - macOS arm64 (Apple Silicon), Darwin 25.3.0
@@ -105,5 +117,5 @@ Currently active: `feat/audio-engine`
 - [ ] TTS output: Claude's response spoken back, orb pulses with amplitude
 - [ ] Speaker diarization via pyannote.audio (identify speakers by voice)
 - [ ] Camera feed: snapshot per query sent to Claude for vision context
-- [ ] Auto-launch sidecar from Tauri (Rust spawns Python on app start)
+- [x] Auto-launch sidecar from Tauri (Rust spawns PyInstaller binary on app start)
 - [ ] Speaker learning: build voice embeddings over time to recognize people
